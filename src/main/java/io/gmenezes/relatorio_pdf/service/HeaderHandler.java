@@ -54,16 +54,17 @@ public class HeaderHandler implements IEventHandler{
 
         Image img = new Image(ImageDataFactory.create(IMAGE_PATH));
         img.scaleToFit(100, 100);
-        canvas.add(img.setFixedPosition(pageSize.getWidth() - 150, pageSize.getTop() - 100));
+        canvas.add(img.setFixedPosition(pageSize.getWidth() - 115, pageSize.getTop() - 100));
 
-        float startYRight = pageSize.getTop() - 140;
+        float startYRight = pageSize.getTop() - 130;
+        float positionRight = pageSize.getWidth() - 36;
 
-        canvas.showTextAligned("RAZÃO SOCIAL:", pageSize.getWidth() - 150, startYRight, TextAlignment.RIGHT).setFontColor(ColorConstants.BLUE);
-        canvas.showTextAligned(form.getRazaoSocial(), pageSize.getWidth() - 150, startYRight - 15, TextAlignment.RIGHT);
+        canvas.showTextAligned("RAZÃO SOCIAL:", positionRight, startYRight, TextAlignment.RIGHT).setFontColor(ColorConstants.BLUE);
+        canvas.showTextAligned(form.getRazaoSocial(), positionRight, startYRight - 15, TextAlignment.RIGHT);
 
-        canvas.showTextAligned("ENDEREÇO", pageSize.getWidth() - 150, startYRight - 40, TextAlignment.RIGHT).setFontColor(ColorConstants.BLUE);
-        canvas.showTextAligned(form.getEnderecoLinha1(), pageSize.getWidth() - 150, startYRight - 55, TextAlignment.RIGHT);
-        canvas.showTextAligned(form.getEnderecoLinha2(), pageSize.getWidth() - 150, startYRight - 70, TextAlignment.RIGHT);
+        canvas.showTextAligned("ENDEREÇO", positionRight, startYRight - 40, TextAlignment.RIGHT).setFontColor(ColorConstants.BLUE);
+        canvas.showTextAligned(form.getEnderecoLinha1(), positionRight, startYRight - 55, TextAlignment.RIGHT);
+        canvas.showTextAligned(form.getEnderecoLinha2(), positionRight, startYRight - 70, TextAlignment.RIGHT);
 
         canvas.close();
 
@@ -83,14 +84,16 @@ public class HeaderHandler implements IEventHandler{
 
     private void drawFooterLine(PdfCanvas pdfCanvas, Rectangle pageSize) {
         Canvas canvas = new Canvas(pdfCanvas, pageSize);
-        float startYFooter = pageSize.getTop() - 150;
+        float startYFooter = pageSize.getTop() - 230;
         float tableWidth = pageSize.getWidth() - 68;
 
-        canvas.add(new com.itextpdf.layout.element.Cell()
-        .setWidth(tableWidth)
-        .setHeight(10) 
-        .setBackgroundColor(ColorConstants.LIGHT_GRAY)
-        .setFixedPosition(34, startYFooter, pageSize.getWidth() - 68)); 
+        canvas.add(
+            new com.itextpdf.layout.element.Cell()
+                .setWidth(tableWidth)
+                .setHeight(10) 
+                .setBackgroundColor(ColorConstants.LIGHT_GRAY)
+                .setFixedPosition(36, startYFooter, pageSize.getWidth() - 68)
+        );
 
         canvas.close();
     }

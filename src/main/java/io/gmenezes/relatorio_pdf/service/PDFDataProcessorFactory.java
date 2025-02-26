@@ -40,8 +40,7 @@ public class PDFDataProcessorFactory<T> {
             }
            
             Table table = tableBuilder.build();
-            table.setMarginLeft(34); 
-            table.setMarginRight(34);
+            table.setMarginTop(80); 
     
             document.add(table);
 
