@@ -1,6 +1,5 @@
 package io.gmenezes.relatorio_pdf.core.domain.enums;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import lombok.AllArgsConstructor;

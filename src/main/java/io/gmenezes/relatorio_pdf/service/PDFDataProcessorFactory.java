@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.itextpdf.kernel.events.PdfDocumentEvent;
+import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
@@ -18,7 +19,6 @@ import io.gmenezes.relatorio_pdf.core.domain.dto.RepasseReportPDFForm;
 import io.gmenezes.relatorio_pdf.service.impl.RepasseTableBuilder;
 
 @Service
-
 public class PDFDataProcessorFactory<T> {
 
     private static final String PATH = "./relatorio.pdf";
@@ -26,21 +26,21 @@ public class PDFDataProcessorFactory<T> {
     public byte[] processorFileOnMemory(List<RepassePDFReport> data, RepasseReportPDFForm form) {
         try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
             PdfDocument pdf = new PdfDocument(new PdfWriter(outputStream));
-            Document document = new Document(pdf);
+            Document document = new Document(pdf,PageSize.A4.rotate());
 
             HeaderHandler headerHandler = new HeaderHandler(form);
             pdf.addEventHandler(PdfDocumentEvent.START_PAGE, headerHandler);
 
             RepasseTableBuilder tableBuilder = new RepasseTableBuilder();
             tableBuilder.addHeader();
-            tableBuilder.addData(data);
+            tableBuilder.addData(data);           
+           
+            Table table = tableBuilder.build();
+            table.setMarginTop(75); 
 
             if (pdf.getNumberOfPages() == 0) { 
                 document.add(new Paragraph("\n\n\n\n\n\n")); 
             }
-           
-            Table table = tableBuilder.build();
-            table.setMarginTop(80); 
     
             document.add(table);
 
